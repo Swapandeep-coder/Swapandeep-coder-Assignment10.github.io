@@ -36,7 +36,7 @@
                     card.className = 'card';
                     card.innerHTML = `
                         <h3>Assignment ${index + 1}</h3>
-                        <a href="assignments/${file}" target="_blank">View PDF</a>
+                        <a href="assignments/${encodeURIComponent(file)}" target="_blank">View PDF</a>
                     `;
                     container.appendChild(card);
                 });
