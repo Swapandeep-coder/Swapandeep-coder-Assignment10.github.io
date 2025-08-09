@@ -3,35 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FDP Assignments</title>
+    <title>FDP Assignments Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <h1>FDP Assignments Compilation</h1>
+        <h1>FDP Assignments Portfolio</h1>
         <nav>
-            <a href="index.html">Home</a>
+            <a href="index.html" class="active">Home</a>
             <a href="about.html">About</a>
         </nav>
     </header>
 
     <main>
-        <h2>Assignments</h2>
-        <ul>
-            <li><a href="assignments/assignment1.pdf" target="_blank">Assignment 1</a></li>
-            <li><a href="assignments/assignment2.pdf" target="_blank">Assignment 2</a></li>
-            <li><a href="assignments/assignment3.pdf" target="_blank">Assignment 3</a></li>
-            <li><a href="assignments/assignment4.pdf" target="_blank">Assignment 4</a></li>
-            <li><a href="assignments/assignment5.pdf" target="_blank">Assignment 5</a></li>
-            <li><a href="assignments/assignment6.pdf" target="_blank">Assignment 6</a></li>
-            <li><a href="assignments/assignment7.pdf" target="_blank">Assignment 7</a></li>
-            <li><a href="assignments/assignment8.pdf" target="_blank">Assignment 8</a></li>
-            <li><a href="assignments/assignment9.pdf" target="_blank">Assignment 9</a></li>
-        </ul>
+        <div id="assignment-list" class="card-container">
+            <p>Loading assignments...</p>
+        </div>
     </main>
 
     <footer>
-        <p>&copy; 2025 Swapandeep Kaur | FDP Assignments</p>
+        <p>&copy; 2025 Swapandeep Kaur | FDP Assignments Portfolio</p>
     </footer>
+
+    <script>
+        fetch('assignments.json')
+            .then(response => response.json())
+            .then(files => {
+                const container = document.getElementById('assignment-list');
+                container.innerHTML = '';
+                files.forEach((file, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h3>Assignment ${index + 1}</h3>
+                        <a href="assignments/${file}" target="_blank">View PDF</a>
+                    `;
+                    container.appendChild(card);
+                });
+            })
+            .catch(err => {
+                document.getElementById('assignment-list').innerHTML = '<p>Error loading assignments.</p>';
+                console.error(err);
+            });
+    </script>
 </body>
 </html>
